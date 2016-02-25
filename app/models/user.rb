@@ -55,6 +55,12 @@ class User < ActiveRecord::Base
       @requests
   end
   
+  def self.isFound(email,password)
+    #@users_ids = User.select("id").where('email = ? and password = ?', email.to_s , password.to_s)
+    user = User.find_by_email(email)
+    user.valid_password?(password)
+  end
+
   def self.getUsersHideThierAccounts
     @users_ids = User.select("id").where('hide_account = ? ', true)
   end

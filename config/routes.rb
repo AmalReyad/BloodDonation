@@ -1,5 +1,15 @@
 Rails.application.routes.draw do 
  
+  resources :webservices
+   namespace :api , path: '/' , constraint: {subdomain: :api,format: :json} do
+    get '/cases' => "webservices#cases"
+    get '/newdonor' => "webservices#newdonor"
+    get '/newcase' => "webservices#newcase"
+    get '/login' => "webservices#login"
+    get '/editdonor' => "webservices#editdonor"
+    get '/donate' => "webservices#donate"
+  end 
+
   devise_for :admins , :controllers => { :sessions => "sessions" } do
      get '/admins/sign_out' => 'devise/sessions#destroy'
   end
@@ -18,6 +28,9 @@ Rails.application.routes.draw do
   get 'requests/:id/donors' => 'requests#donors', :as => :donors_requests
   get 'requests/:id/cancel_donate' => 'requests#cancel_donate', :as => :cancel_donate_requests
   
+ 
+
+
   resources :users, :only => [:show, :active_donations] do
     member do 
       get :pause

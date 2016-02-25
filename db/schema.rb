@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150829130822) do
+ActiveRecord::Schema.define(version: 20160225131747) do
 
   create_table "active_requests", force: :cascade do |t|
     t.string   "donor_id"
@@ -39,42 +39,6 @@ ActiveRecord::Schema.define(version: 20150829130822) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
-
-  create_table "facebook_users", force: :cascade do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "facebookusers", force: :cascade do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
   create_table "requests", force: :cascade do |t|
     t.string   "contact_name"
     t.string   "contact_phone"
@@ -86,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150829130822) do
     t.integer  "bloodbag"
     t.string   "hospital_name"
     t.string   "hospital_location"
-    t.date     "created_at",            default: '2015-08-23', null: false
+    t.date     "created_at",            default: '2016-02-19', null: false
     t.datetime "updated_at",                                   null: false
     t.float    "hospital_location_lat"
     t.float    "hospital_location_lng"
@@ -104,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150829130822) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.date     "created_at",             default: '2015-08-23', null: false
+    t.date     "created_at",             default: '2016-02-19', null: false
     t.datetime "updated_at",                                    null: false
     t.string   "name"
     t.string   "phone"
@@ -113,13 +77,13 @@ ActiveRecord::Schema.define(version: 20150829130822) do
     t.string   "gender"
     t.date     "lastdonation"
     t.integer  "savedpeople",            default: 0
+    t.integer  "notifications",          default: 0
     t.float    "location_lat"
     t.float    "location_lng"
     t.string   "location_name"
     t.integer  "num_of_active_requests"
     t.boolean  "pause",                  default: false
     t.date     "birth_date"
-    t.integer  "notifications",          default: 0
     t.boolean  "can_donate",             default: true
     t.boolean  "hide_account",           default: false
     t.boolean  "stop_getting_email",     default: false
@@ -127,5 +91,10 @@ ActiveRecord::Schema.define(version: 20150829130822) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "webservices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
